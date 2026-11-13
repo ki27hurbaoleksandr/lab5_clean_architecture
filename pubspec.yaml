@@ -1,0 +1,10 @@
+name: lab5_clean_architecture
+description: Консольний застосунок обліку завдань із шаровою (чистою) архітектурою.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.14.0
+
+dev_dependencies:
+  test: ^1.25.6

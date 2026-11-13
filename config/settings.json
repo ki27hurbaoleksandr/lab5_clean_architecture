@@ -1,0 +1,6 @@
+{
+  "storage": {
+    "type": "json",
+    "path": "data/tasks_local.json"
+  }
+}
