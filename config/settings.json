@@ -1,0 +1,6 @@
+{
+  "storage": {
+    "type": "json",
+    "path": "tasks.json"
+  }
+}
