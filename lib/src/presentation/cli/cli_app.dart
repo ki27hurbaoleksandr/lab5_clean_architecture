@@ -20,12 +20,12 @@ class CliApp {
     required DeleteTaskUseCase deleteTask,
     String? Function()? readLine,
     void Function(String)? writeLine,
-  })  : _createTask = createTask,
-        _listTasks = listTasks,
-        _completeTask = completeTask,
-        _deleteTask = deleteTask,
-        _readLine = readLine ?? (() => stdin.readLineSync(encoding: utf8)),
-        _writeLine = writeLine ?? print;
+  }) : _createTask = createTask,
+       _listTasks = listTasks,
+       _completeTask = completeTask,
+       _deleteTask = deleteTask,
+       _readLine = readLine ?? (() => stdin.readLineSync(encoding: utf8)),
+       _writeLine = writeLine ?? print;
 
   final CreateTaskUseCase _createTask;
   final ListTasksUseCase _listTasks;

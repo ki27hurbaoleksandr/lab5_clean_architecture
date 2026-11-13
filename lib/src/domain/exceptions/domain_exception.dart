@@ -14,13 +14,13 @@ class DomainException implements Exception {
 /// Заголовок завдання порожній або складається лише з пробілів.
 class InvalidTaskTitleException extends DomainException {
   const InvalidTaskTitleException()
-      : super('Заголовок завдання не може бути порожнім.');
+    : super('Заголовок завдання не може бути порожнім.');
 }
 
 /// Спроба завершити завдання, яке вже завершене.
 class TaskAlreadyCompletedException extends DomainException {
   TaskAlreadyCompletedException(String id)
-      : super('Завдання "$id" уже завершене.');
+    : super('Завдання "$id" уже завершене.');
 }
 
 /// Завдання з указаним ідентифікатором не існує.

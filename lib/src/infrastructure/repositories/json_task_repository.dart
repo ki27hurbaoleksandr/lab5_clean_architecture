@@ -73,23 +73,22 @@ class JsonTaskRepository implements TaskRepository {
   Future<void> _write(List<TaskItem> tasks) async {
     final file = _file;
     await file.parent.create(recursive: true);
-    final json = const JsonEncoder.withIndent('  ').convert(
-      [for (final task in tasks) _toJson(task)],
-    );
+    final json = const JsonEncoder.withIndent('  ')
+        .convert([for (final task in tasks) _toJson(task)]);
     await file.writeAsString(json, flush: true);
   }
 
   static Map<String, dynamic> _toJson(TaskItem task) => {
-        'id': task.id,
-        'title': task.title,
-        'isCompleted': task.isCompleted,
-        'createdAt': task.createdAt.toIso8601String(),
-      };
+    'id': task.id,
+    'title': task.title,
+    'isCompleted': task.isCompleted,
+    'createdAt': task.createdAt.toIso8601String(),
+  };
 
   static TaskItem _fromJson(Map<String, dynamic> json) => TaskItem(
-        id: json['id'] as String,
-        title: json['title'] as String,
-        isCompleted: json['isCompleted'] as bool,
-        createdAt: DateTime.parse(json['createdAt'] as String),
-      );
+    id: json['id'] as String,
+    title: json['title'] as String,
+    isCompleted: json['isCompleted'] as bool,
+    createdAt: DateTime.parse(json['createdAt'] as String),
+  );
 }
