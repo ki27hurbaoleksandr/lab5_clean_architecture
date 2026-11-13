@@ -15,13 +15,18 @@ const _defaultSettingsPath = 'config/settings.json';
 /// Composition root: єдине місце, де збираються залежності
 /// (Dependency Injection).
 Future<void> main(List<String> arguments) async {
-  final settingsPath =
-      arguments.isNotEmpty ? arguments.first : _defaultSettingsPath;
+  final settingsPath = arguments.isNotEmpty
+      ? arguments.first
+      : _defaultSettingsPath;
   final settings = _readSettings(settingsPath);
 
   // 1. Обираємо реалізацію TaskRepository за налаштуванням storage.type.
-  final repository =
-      _createRepository(settings['storage'] as Map<String, dynamic>);
+  final storage = settings['storage'];
+  if (storage is! Map<String, dynamic>) {
+    stderr.writeln('У налаштуваннях відсутній розділ storage.');
+    exit(1);
+  }
+  final repository = _createRepository(storage);
 
   // 2. Передаємо репозиторій у use cases через конструктор.
   // 3. Передаємо use cases у CliApp.
@@ -50,7 +55,14 @@ TaskRepository _createRepository(Map<String, dynamic> storage) {
     case 'memory':
       return InMemoryTaskRepository();
     case 'json':
-      return JsonTaskRepository(storage['path'] as String);
+      final path = storage['path'];
+      if (path is! String || path.trim().isEmpty) {
+        stderr.writeln(
+          'Для storage.type = json потрібен непорожній рядок path.',
+        );
+        exit(1);
+      }
+      return JsonTaskRepository(path);
     default:
       stderr.writeln(
         'Невідомий storage.type: "$type" (очікується memory або json).',
